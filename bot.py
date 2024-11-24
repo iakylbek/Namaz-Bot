@@ -20,6 +20,8 @@ dp.message.register(command_help_handler, Command("help"))
 dp.message.register(time_namaz_handler, F.text == 'Время намаза')
 dp.message.register(statistics_handler, F.text == 'Статистика за сегодня')
 dp.message.register(settings_handler, F.text == 'Настройки')
+dp.message.register(missed_namaz_handler, F.text == "Пропущенные намазы")
+dp.callback_query.register(missed_action_handler, PrayerCallback.filter())
 dp.message.register(notification_handler, F.text == 'Пример')
 
 dp.callback_query.register(city_chosen_handler, UserSettings.city)
