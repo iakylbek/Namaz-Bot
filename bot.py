@@ -4,6 +4,8 @@ import sys
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
+from aiogram.enums.parse_mode import ParseMode
+from aiogram.client.default import DefaultBotProperties
 
 from config import TOKEN
 from handlers import *
@@ -27,7 +29,7 @@ dp.callback_query.register(notification_chosen, UserSettings.notification)
 dp.message.register(echo_handler)
 
 async def main() -> None:
-    bot = Bot(token=TOKEN)
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

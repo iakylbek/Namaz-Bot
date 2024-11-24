@@ -21,7 +21,7 @@ def madhab_kb():
             InlineKeyboardButton(text="Шафии", callback_data="Шафии")
         ],
         [
-            InlineKeyboardButton(text="Малика", callback_data="Малика"), 
+            InlineKeyboardButton(text="Малики", callback_data="Малики"), 
             InlineKeyboardButton(text="Ханбали", callback_data="Ханбали")
         ]
     ]
