@@ -1,6 +1,5 @@
 from datetime import datetime
 from aiogram.types import Message
-from tabulate import tabulate
 
 namaz_times = [
         ["\U0001F305 Фаджр", "05:20"],
@@ -11,13 +10,15 @@ namaz_times = [
     ]
 
 async def time_namaz_handler(message: Message) -> None:
-    """
-    Handler will send message about namaz times for today
-    """
-    now = datetime.now()
-    formatted_date = now.strftime("%d.%m.%Y")
+    formatted_date = datetime.now().strftime("%d.%m.%Y")
     text = (
-        f"\U0001F55C Время намазов на {formatted_date}\n"
-        f"В городе Москва:\n<pre>{tabulate(namaz_times, tablefmt="grid")}</pre>"
+        f"Время намазов на *{formatted_date}*\n"
+        "В городе Москва\n\n"
     )
+
+    for name, time in namaz_times:
+        text += f"• *{name:<10}:* {time}\n"
+    
+    text += "\*всемирная исламская лига"
+
     await message.answer(text)

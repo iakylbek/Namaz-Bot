@@ -1,15 +1,18 @@
 from aiogram.types import Message
-from tabulate import tabulate
 
 namazs_list = [
-    ["Фаджр", "\U00002705\n"],
-    ["Зухр", "\U00002705\n"],
-    ["Аср", "\U00002705\n"],
-    ["Магриб", "\U0000274C\n"],
-    ["Иша", "\U0001F55C\n"]
+    ["\U0001F305 Фаджр", "\U00002705\n"],
+    ["\U0001F54C Зухр", "\U00002705\n"],
+    ["\U0001F3D9 Аср", "\U00002705\n"],
+    ["\U0001F304 Магриб", "\U0000274c\n"],
+    ["\U0001F303 Иша", "\U0001f55c\n"],
 ]
-text = (f"\U0001F4CA Статистика намазов за сегодня:\n\n")
+
 
 async def statistics_handler(message: Message) -> None:
+    text = "\U0001f4ca Статистика за сегодня:\n\n"
 
-    await message.answer(text + f"<pre>{tabulate(namazs_list, tablefmt="grid")}</pre>")
+    for name, status in namazs_list:
+        text += f"• *{name:<20}* {status}"
+
+    await message.answer(text, parse_mode="Markdown")

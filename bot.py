@@ -17,12 +17,12 @@ dp = Dispatcher()
 dp.message.register(command_start_handler, CommandStart())
 dp.message.register(command_help_handler, Command("help"))
 
-dp.message.register(time_namaz_handler, F.text == 'Время намаза')
-dp.message.register(statistics_handler, F.text == 'Статистика за сегодня')
-dp.message.register(settings_handler, F.text == 'Настройки')
+dp.message.register(time_namaz_handler, F.text == "Время намаза")
+dp.message.register(statistics_handler, F.text == "Статистика за сегодня")
+dp.message.register(settings_handler, F.text == "Настройки")
 dp.message.register(missed_namaz_handler, F.text == "Пропущенные намазы")
 dp.callback_query.register(missed_action_handler, PrayerCallback.filter())
-dp.message.register(notification_handler, F.text == 'Пример')
+dp.message.register(notification_handler, F.text == "Пример")
 
 dp.callback_query.register(city_chosen_handler, UserSettings.city)
 dp.callback_query.register(madhab_chosen_handler, UserSettings.madhab)
@@ -30,9 +30,11 @@ dp.callback_query.register(notification_chosen, UserSettings.notification)
 
 dp.message.register(echo_handler)
 
+
 async def main() -> None:
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN))
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)

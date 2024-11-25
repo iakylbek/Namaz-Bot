@@ -1,10 +1,11 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+
 def notification_kb():
     buttons = [
         [
-            InlineKeyboardButton(text="Отметить прочитанным", callback_data="mark"),
-            InlineKeyboardButton(text="Отложить на 30 минут", callback_data="postpone")
+            InlineKeyboardButton(text="Отметить\nпрочитанным", callback_data="mark"),
+            InlineKeyboardButton(text="Отложить\nна 30 минут", callback_data="postpone"),
         ]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
@@ -13,8 +14,8 @@ def notification_kb():
 def last_notification_kb():
     buttons = [
         [
-            InlineKeyboardButton(text="Отметить прочитанным", callback_data="mark"),
-            InlineKeyboardButton(text="Отметить пропущенным", callback_data="missed")
+            InlineKeyboardButton(text="Отметить\nпрочитанным", callback_data="mark"),
+            InlineKeyboardButton(text="Отметить\nпропущенным", callback_data="missed"),
         ]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
