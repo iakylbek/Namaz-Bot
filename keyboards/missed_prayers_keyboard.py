@@ -30,11 +30,11 @@ def missed_fajr_kb(missed_namaz: dict):
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text="+1",
+                    text="\U00002705",
                     callback_data=PrayerCallback(name=name, action="plus").pack(),
                 ),
                 InlineKeyboardButton(
-                    text="-1",
+                    text="\U0000274c",
                     callback_data=PrayerCallback(name=name, action="minus").pack(),
                 ),
             ]

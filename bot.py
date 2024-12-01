@@ -8,6 +8,7 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
 from config import TOKEN
+from keyboards.notification_keyboard import MarkingCallback
 from handlers import *
 
 # All handlers should be attached to the Router (or Dispatcher)
@@ -23,6 +24,7 @@ dp.message.register(settings_handler, F.text == "Настройки")
 dp.message.register(missed_namaz_handler, F.text == "Пропущенные намазы")
 dp.callback_query.register(missed_action_handler, PrayerCallback.filter())
 dp.message.register(notification_handler, F.text == "Пример")
+dp.callback_query.register(marking_namaz_handler, MarkingCallback.filter())
 
 dp.callback_query.register(city_chosen_handler, UserSettings.city)
 dp.callback_query.register(madhab_chosen_handler, UserSettings.madhab)

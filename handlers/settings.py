@@ -7,11 +7,11 @@ from keyboards.settings_keyboard import city_kb
 
 async def settings_handler(message: Message, state: FSMContext) -> None:
     text = (
-        "\U00002699 Ваши текущие найстройки: \n\n"
+        "\U00002699 Ваши текущие найстройки: \n"
         "*Город:*        Москва\n"
         "*Мазхаб:*       Ханафи\n"
-        "*Уведомления:*  Точное время"
+        "*Уведомления:*  Точное время\n\n"
     )
-    await message.answer(text)
-    await message.answer("\U0001f4cd Выберите город: ", reply_markup=city_kb())
+    # await message.answer(text)
+    await message.answer(text + "\U0001f4cd Выберите город в котором проживаите: ", reply_markup=city_kb())
     await state.set_state(UserSettings.city)
