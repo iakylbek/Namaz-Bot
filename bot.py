@@ -27,7 +27,6 @@ dp.message.register(notification_handler, F.text == "Пример")
 dp.callback_query.register(marking_namaz_handler, MarkingCallback.filter())
 
 dp.callback_query.register(city_chosen_handler, UserSettings.city)
-dp.callback_query.register(madhab_chosen_handler, UserSettings.madhab)
 dp.callback_query.register(notification_chosen, UserSettings.notification)
 
 dp.message.register(echo_handler)

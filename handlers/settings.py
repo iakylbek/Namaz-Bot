@@ -9,7 +9,6 @@ async def settings_handler(message: Message, state: FSMContext) -> None:
     text = (
         "\U00002699 Ваши текущие найстройки: \n"
         "*Город:*        Москва\n"
-        "*Мазхаб:*       Ханафи\n"
         "*Уведомления:*  Точное время\n\n"
     )
     # await message.answer(text)

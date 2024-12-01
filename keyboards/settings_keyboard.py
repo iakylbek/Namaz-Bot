@@ -15,20 +15,6 @@ def city_kb():
     return InlineKeyboardMarkup(inline_keyboard=city_list)
 
 
-def madhab_kb():
-    madhab_list = [
-        [
-            InlineKeyboardButton(text="Ханафи", callback_data="Ханафи"),
-            InlineKeyboardButton(text="Шафии", callback_data="Шафии"),
-        ],
-        [
-            InlineKeyboardButton(text="Малики", callback_data="Малики"),
-            InlineKeyboardButton(text="Ханбали", callback_data="Ханбали"),
-        ],
-    ]
-    return InlineKeyboardMarkup(inline_keyboard=madhab_list)
-
-
 def notification_time_kb():
     notification_time_list = [
         [
