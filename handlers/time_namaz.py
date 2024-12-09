@@ -1,25 +1,31 @@
-from datetime import datetime
+from datetime import date
+
 from aiogram.types import Message
 
-namaz_times = [
-        ["\U0001F305 Фаджр", "05:20", "\U00002705"],
-        ["\U0001F54C Зухр", "12:30", "\U00002705"],
-        ["\U0001F3D9 Аср", "15:45", "\U0000274c"],
-        ["\U0001F304 Магриб", "18:10", "\U00002705"],
-        ["\U0001F303 Иша", "19:30", "\U0001f55c"]
-    ]
+from api.aladhan import AladhanAPI
+
+namaz_names = [
+    ["\U0001F54C Фаджр", "Fajr"],
+    ["\U0001f305 Рассвет", "Sunrise"],
+    ["\U0001f54c Зухр", "Dhuhr"],
+    ["\U0001f3d9 Аср", "Asr"],
+    ["\U0001f304 Магриб", "Maghrib"],
+    ["\U0001f303 Иша", "Isha"],
+]
 
 async def time_namaz_handler(message: Message) -> None:
-    formatted_date = datetime.now().strftime("%d.%m.%Y")
-    text = (
-        f"Время намазов на *{formatted_date}*\n"
-        "В городе Москва\n\n"
-    )
-    text += '`'
-    for name, time, status in namaz_times:
-        text += f"{name:<8}: {time} {status}\n"
-    text += '`'
-    
-    text += "\*всемирная исламская лига"
+    today = date.today().strftime("%d.%m.%Y")
+    data = await AladhanAPI.get_prayer_times_by_city(today, "Moscow", "RU")
+    data_shia = await AladhanAPI.get_prayer_times_by_city(today, "Moscow", "RU", school=0)
+
+    text = f"Время намазов на *{today}*\n" "В городе Москва\n\n"
+    text += "`"
+    for name, name_en in namaz_names:
+        text += f"{name:<10}: {data["data"]["timings"][name_en]} "
+        if name_en == "Asr":
+            text += f"({data_shia["data"]["timings"]["Asr"]})"
+        text += "\n"
+    text += "`"
+    text += f"\*{data["data"]["meta"]["method"]["name"]}".lower()
 
     await message.answer(text)
