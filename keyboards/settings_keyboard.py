@@ -18,11 +18,8 @@ def city_kb():
 def notification_time_kb():
     notification_time_list = [
         [
-            InlineKeyboardButton(text="Точное время", callback_data="Точное время"),
-        ],
-        [
-            InlineKeyboardButton(text="За 15 минут", callback_data="За 15 минут"),
-            InlineKeyboardButton(text="После 15 минут", callback_data="После 15 минут"),
+            InlineKeyboardButton(text="Каждые 30 мин", callback_data="every_30_min"),
+            InlineKeyboardButton(text="Не напоминать", callback_data="dont_notify"),
         ],
     ]
     return InlineKeyboardMarkup(inline_keyboard=notification_time_list)

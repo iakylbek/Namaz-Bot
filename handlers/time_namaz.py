@@ -26,6 +26,4 @@ async def time_namaz_handler(message: Message) -> None:
             text += f"({data_shia["data"]["timings"]["Asr"]})"
         text += "\n"
     text += "`"
-    text += f"\*{data["data"]["meta"]["method"]["name"]}".lower()
-
     await message.answer(text)

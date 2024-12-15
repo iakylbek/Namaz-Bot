@@ -27,7 +27,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
 
 
 async def city_chosen_handler(callback_query: CallbackQuery, state: FSMContext) -> None:
-    text = "Когда вы хотите получать напоминание о начале намаза?"
+    text = "Как часто напоминать о намаза, если намаз не был отмечен прочитанным?"
 
     await state.update_data(city=callback_query.data)
     await callback_query.message.answer(text, reply_markup=notification_time_kb())
