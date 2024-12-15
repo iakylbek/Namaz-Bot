@@ -1,9 +1,12 @@
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+from sqlalchemy.orm import Session
 
 from keyboards.menu_keyborad import menu_kb
 from keyboards.settings_keyboard import city_kb, notification_time_kb
+from models.user import User
+from models.db import SessionLocal
 
 
 class UserSettings(StatesGroup):
@@ -40,6 +43,19 @@ async def notification_chosen(callback_query: CallbackQuery, state: FSMContext):
         f"*Город:* {settings["city"]:>21}\n"
         f"*Уведомления:* {settings["notification_time"]:<10}\n"
     )
+    
+    session: Session = SessionLocal()
+    new_user = User(
+        user_id=callback_query.from_user.id,
+        username=callback_query.from_user.username,
+        first_name=callback_query.from_user.first_name,
+        last_name=callback_query.from_user.last_name,
+        city = settings["city"]
+    )
+    session.add(new_user)
+    session.commit()
+    session.close()
+
     await callback_query.message.answer(text)
     await callback_query.message.delete()
     await callback_query.message.answer(
