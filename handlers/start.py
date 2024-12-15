@@ -45,17 +45,22 @@ async def notification_chosen(callback_query: CallbackQuery, state: FSMContext):
     )
     
     session: Session = SessionLocal()
-    new_user = User(
-        user_id=callback_query.from_user.id,
-        username=callback_query.from_user.username,
-        first_name=callback_query.from_user.first_name,
-        last_name=callback_query.from_user.last_name,
-        city = settings["city"]
-    )
-    session.add(new_user)
+    existing_user = session.query(User).filter_by(user_id=callback_query.from_user.id).first()
+    if existing_user is None:
+        new_user = User(
+            user_id=callback_query.from_user.id,
+            username=callback_query.from_user.username,
+            first_name=callback_query.from_user.first_name,
+            last_name=callback_query.from_user.last_name,
+            city = settings["city"]
+        )
+        session.add(new_user)
+
+    else:
+        existing_user.city = settings["city"]
+
     session.commit()
     session.close()
-
     await callback_query.message.answer(text)
     await callback_query.message.delete()
     await callback_query.message.answer(
