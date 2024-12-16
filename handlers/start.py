@@ -6,7 +6,8 @@ from sqlalchemy.orm import Session
 from keyboards.menu_keyborad import menu_kb
 from keyboards.settings_keyboard import city_kb, notification_time_kb
 from models.user import User
-from models.db import SessionLocal
+from models.city import City
+from models.db_config import SessionLocal
 
 
 class UserSettings(StatesGroup):
@@ -38,6 +39,7 @@ async def city_chosen_handler(callback_query: CallbackQuery, state: FSMContext) 
 async def notification_chosen(callback_query: CallbackQuery, state: FSMContext):
     await state.update_data(notification_time=callback_query.data)
     settings = await state.get_data()
+    
     text = (
         "\U00002699 Ваши настройки:\n"
         f"*Город:* {settings["city"]:>21}\n"
@@ -46,18 +48,21 @@ async def notification_chosen(callback_query: CallbackQuery, state: FSMContext):
     
     session: Session = SessionLocal()
     existing_user = session.query(User).filter_by(user_id=callback_query.from_user.id).first()
+    city = session.query(City).filter(City.id == 1).first()
+
     if existing_user is None:
         new_user = User(
             user_id=callback_query.from_user.id,
             username=callback_query.from_user.username,
             first_name=callback_query.from_user.first_name,
             last_name=callback_query.from_user.last_name,
-            city = settings["city"]
+            city = city
         )
         session.add(new_user)
 
     else:
-        existing_user.city = settings["city"]
+        existing_user.city = city
+        pass
 
     session.commit()
     session.close()

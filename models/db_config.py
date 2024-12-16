@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-
-DATABASE_URL = "postgresql://postgres:postgres-password@localhost/namaz_bot"
+from config import DATABASE_URL
 
 Base = declarative_base()
 
